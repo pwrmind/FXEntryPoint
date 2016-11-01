@@ -129,23 +129,16 @@ namespace FXEntryPoint
                 return;
 
             int r = 100, g = 100, b = 0;
-            
-
-            //picture = new PictureBox();
-            //picture.Size = new Size(items.Count, (int)Math.Ceiling((items.Max(i=>i.Close) - items.Min(i => i.Close)) * 100000)*2);
-            //Bitmap plot = new Bitmap(picture.Size.Width, picture.Size.Height);
+                        
             Bitmap plot = new Bitmap(items.Count, (int)Math.Ceiling((items.Max(i => i.Close) - items.Min(i => i.Close)) * 100000) * 2);
             picture.Image = plot;
             int height = plot.Height;
             int width = plot.Width;
             Graphics plotGraphics = Graphics.FromImage(plot);
             plotGraphics.FillRectangle(Brushes.Black, 0, 0, plot.Width, plot.Height);
-
-            //toolStripProgressBarDrawing.Maximum = items.Count;
-
+            
             for (int i = 0; i < items.Count; i++)
             {
-                //toolStripProgressBarDrawing.Value = i;
                 worker.ReportProgress(i * 100 / items.Count);
 
                 if (r != 240)
@@ -180,36 +173,27 @@ namespace FXEntryPoint
                 Color c = Color.FromArgb(255, r, g, b);
                 for (int j = i + 1; j < items.Count; j++)
                 {
-                    float k = items[i].Close - items[j].Close;
+                    float k = (items[i].Close - items[j].Close);//. * (-1);
 
                     Graphics graphicsObj = CreateGraphics();
                     Pen myPen = new Pen(c, 1);
-
-                    //graphicsObj.DrawLine(myPen, j, (this.Height / 2) + (float)(k * 100000), j, (this.Height / 2) + (float)(k * 100000) + 1);
-                    float t = (height / 2) + (float)(k * 100000);
+                    
+                    float t = ((height / 2) + (k * 100000));
                     plotGraphics.DrawLine(myPen, i, (height / 2), j, t);
-
-
-                    //Console.WriteLine(items[i].operationDate.ToString() + " - " + items[j].operationDate.ToString() + ": " + k.ToString());
-                    //File.AppendAllText(@"eurusd.csv", items[i].operationDate.ToString() + "," + items[j].operationDate.ToString() + "," + k.ToString() + Environment.NewLine);
                 }
 
                 Graphics graphicsObj02;
                 graphicsObj02 = CreateGraphics();
                 Pen myPen02 = new Pen(c, 2);
-                //graphicsObj02.DrawLine(myPen02, i, (this.Height / 2)-4, i, (this.Height / 2) + 4);
                 plotGraphics.DrawLine(myPen02, i, (height / 2) - 4, i, (height / 2) + 4);
-
-                //if (tmpdt.Hour != items[i].operationDate.Hour)
+                
                 if (i % 60 == 0)
                 {
-                    //tmpdt = items[i].operationDate;
                     if (i % 1440 == 0)
                     {
                         Graphics graphicsObj03;
                         graphicsObj03 = CreateGraphics();
                         Pen myPen03 = new Pen(Color.Red, 1);
-                        //graphicsObj03.DrawLine(myPen03, i, 0, i, this.Height);
                         plotGraphics.DrawLine(myPen03, i, 0, i, height);
                     }
                     else
@@ -219,17 +203,10 @@ namespace FXEntryPoint
                         Pen myPen03 = new Pen(Color.Red, 1);
                         float[] dashValues = { 2, 2 };
                         myPen03.DashPattern = dashValues;
-                        //graphicsObj03.DrawLine(myPen03, i, 0, i, this.Height);
                         plotGraphics.DrawLine(myPen03, i, 0, i, height);
                     }
                 }
-                
-                //picture.Refresh();
             }
-
-            //worker.CancelAsync();
-            //plot.Dispose();
-            //picture.Image.Save("./plot_20100829_20160901.png", ImageFormat.Png);
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -239,8 +216,7 @@ namespace FXEntryPoint
             saveFileDialog.Title = "Save an Image File";
             saveFileDialog.FileName = dateTimePickerFrom.Value.ToString("yyyyMMdd") + "_" + dateTimePickerTo.Value.ToString("yyyyMMdd");
             saveFileDialog.ShowDialog();
-
-            // If the file name is not an empty string open it for saving.
+            
             if (saveFileDialog.FileName != "")
             {
                 FileStream fs = (FileStream)saveFileDialog.OpenFile();
