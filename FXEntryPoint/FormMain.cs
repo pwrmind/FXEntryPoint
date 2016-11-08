@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -204,6 +205,16 @@ namespace FXEntryPoint
                         float[] dashValues = { 2, 2 };
                         myPen03.DashPattern = dashValues;
                         plotGraphics.DrawLine(myPen03, i, 0, i, height);
+
+                        
+                        string drawString = items[i].Time.ToString();
+                        Font drawFont = new Font("Arial", 14);
+                        SolidBrush drawBrush = new SolidBrush(Color.Red);
+                        StringFormat drawFormat = new StringFormat(StringFormatFlags.DirectionVertical);
+                        plotGraphics.DrawString(drawString, drawFont, drawBrush, i, 20, drawFormat);
+                        //drawFont.Dispose();
+                        //drawBrush.Dispose();
+                        //formGraphics.Dispose();
                     }
                 }
             }
@@ -255,6 +266,7 @@ namespace FXEntryPoint
             Draw(timeframeCollection
                 .Where(tf => tf.Time.Date >= dateTimePickerFrom.Value.Date)
                 .Where(tf => tf.Time.Date <= dateTimePickerTo.Value.Date)
+                .OrderBy(tf=>tf.Time)
                 .ToList(), worker);
         }
 
@@ -271,6 +283,13 @@ namespace FXEntryPoint
             {
                 player.Play();
             }
+        }
+
+        private void picture_Click(object sender, EventArgs e)
+        {
+            string tmpFileName = Path.GetTempPath() + dateTimePickerFrom.Value.ToString("yyyyMMdd") + "_" + dateTimePickerTo.Value.ToString("yyyyMMdd")+".png";
+            picture.Image.Save(tmpFileName, ImageFormat.Png);
+            Process.Start(tmpFileName);
         }
     }
 

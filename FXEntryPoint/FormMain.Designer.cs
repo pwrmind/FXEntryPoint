@@ -39,10 +39,10 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBarDrawing = new System.Windows.Forms.ToolStripProgressBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.picture = new System.Windows.Forms.PictureBox();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             this.dataGridViewMain = new System.Windows.Forms.DataGridView();
-            this.picture = new System.Windows.Forms.PictureBox();
             this.backgroundWorkerMain = new System.ComponentModel.BackgroundWorker();
             this.menuStripMain.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -50,8 +50,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -146,6 +146,18 @@
             this.splitContainer1.SplitterDistance = 224;
             this.splitContainer1.TabIndex = 3;
             // 
+            // picture
+            // 
+            this.picture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.picture.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picture.Location = new System.Drawing.Point(12, 69);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(200, 141);
+            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picture.TabIndex = 2;
+            this.picture.TabStop = false;
+            this.picture.Click += new System.EventHandler(this.picture_Click);
+            // 
             // dateTimePickerTo
             // 
             this.dateTimePickerTo.Enabled = false;
@@ -176,16 +188,6 @@
             this.dataGridViewMain.Size = new System.Drawing.Size(506, 374);
             this.dataGridViewMain.TabIndex = 2;
             // 
-            // picture
-            // 
-            this.picture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.picture.Location = new System.Drawing.Point(12, 69);
-            this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(200, 141);
-            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picture.TabIndex = 2;
-            this.picture.TabStop = false;
-            // 
             // backgroundWorkerMain
             // 
             this.backgroundWorkerMain.WorkerReportsProgress = true;
@@ -214,8 +216,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
